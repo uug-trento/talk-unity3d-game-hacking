@@ -79,26 +79,26 @@ void vmethod_2()
 {
 	//[...] if (character.IsUserControlled())
 	if (Input.GetMouseButton(2))
+	{
+		Character[] array = UnityEngine.Object.FindObjectsOfType<Character>();
+		float maxDist = -1f;
+		Character nearest = null;
+		foreach (Character o in array)
 		{
-			Character[] array = UnityEngine.Object.FindObjectsOfType<Character>();
-			float maxDist = -1f;
-			Character nearest = null;
-			foreach (Character o in array)
+			if (!o.FirstPersonMode)
 			{
-				if (!o.FirstPersonMode)
+				float dist = Vector3.Distance(o.transform.position, transform.position);
+				if (dist > maxDist)
 				{
-					float dist = Vector3.Distance(o.transform.position, transform.position+new Vector3(0,1.75f));
-					if (dist > maxDist)
-					{
-						maxDist = dist;
-						nearest = o;
-					}
+					maxDist = dist;
+					nearest = o;
 				}
 			}
-			if (nearest)
-			{
-				transform.LookAt(nearest.transform);
-			}
 		}
+		if (nearest)
+		{
+			transform.LookAt(nearest.transform.position + new Vector3(0f, 1.75f));
+		}
+	}
 }
 ```
