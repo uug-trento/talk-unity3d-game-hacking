@@ -34,11 +34,12 @@ public void OnRenderObject()
     GL.MultMatrix(base.transform.localToWorldMatrix);
     GL.Begin(1);
     GL.Color(Color.red);
+    float height = (IsCrouched ? 2 : 2.5f);
     GL.Vertex(new Vector3(0.5f, 0f));
-    GL.Vertex(new Vector3(0.5f, 2f));
-    GL.Vertex(new Vector3(0.5f, 2f));
-    GL.Vertex(new Vector3(-0.5f, 2f));
-    GL.Vertex(new Vector3(-0.5f, 2f));
+    GL.Vertex(new Vector3(0.5f, height));
+    GL.Vertex(new Vector3(0.5f, height));
+    GL.Vertex(new Vector3(-0.5f, height));
+    GL.Vertex(new Vector3(-0.5f, height));
     GL.Vertex(new Vector3(-0.5f, 0f));
     GL.Vertex(new Vector3(-0.5f, 0f));
     GL.Vertex(new Vector3(0.5f, 0f));
@@ -81,23 +82,23 @@ void vmethod_2()
 	if (Input.GetMouseButton(2))
 	{
 		Character[] array = UnityEngine.Object.FindObjectsOfType<Character>();
-		float maxDist = -1f;
+		float minDist = float.maxValue;
 		Character nearest = null;
 		foreach (Character o in array)
 		{
 			if (!o.FirstPersonMode)
 			{
 				float dist = Vector3.Distance(o.transform.position, transform.position);
-				if (dist > maxDist)
+				if (dist < minDist)
 				{
-					maxDist = dist;
+					minDist = dist;
 					nearest = o;
 				}
 			}
 		}
 		if (nearest)
 		{
-			transform.LookAt(nearest.transform.position + new Vector3(0f, 1.75f));
+			transform.LookAt(nearest.transform.position + new Vector3(0f, 2.25f));
 		}
 	}
 }
