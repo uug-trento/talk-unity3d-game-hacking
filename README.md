@@ -1,5 +1,12 @@
 # talk-unity3d-game-hacking
 Slides for the talk in the UUGTrento #8 
+## Links
+Decompilers:
+* https://github.com/0xd4d/dnSpy
+* https://github.com/icsharpcode/ILSpy
+
+Deobfuscator:
+* https://github.com/0xd4d/de4dot
 
 ## Demo Code
 ### ESP
