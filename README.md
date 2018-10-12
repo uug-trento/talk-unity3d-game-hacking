@@ -87,7 +87,7 @@ void vmethod_2()
 			{
 				if (!o.FirstPersonMode)
 				{
-					float dist = Vector3.Distance(o.transform.position, transform.position);
+					float dist = Vector3.Distance(o.transform.position, transform.position+new Vector3(0,1.75f));
 					if (dist > maxDist)
 					{
 						maxDist = dist;
