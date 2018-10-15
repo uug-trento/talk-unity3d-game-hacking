@@ -14,14 +14,14 @@ Deobfuscator:
 Material lineMaterial;
 public void OnRenderObject()
 {
-    if (this.firstPersonMode)
+    if (this.firstPersonMode || Camera.current.name != "FpsCamera" || !Character.CHEAT_ESP)
     {
         return;
     }
     if (!this.lineMaterial)
     {
         this.lineMaterial = new Material(Shader.Find("GUI/Text Shader"));
-        this.lineMaterial.color = Color.red;
+        this.lineMaterial.color = Color.white;
         this.lineMaterial.hideFlags = HideFlags.HideAndDontSave;
         this.lineMaterial.SetInt("_SrcBlend", 5);
         this.lineMaterial.SetInt("_DstBlend", 10);
@@ -43,6 +43,12 @@ public void OnRenderObject()
     GL.Vertex(new Vector3(-0.5f, 0f));
     GL.Vertex(new Vector3(-0.5f, 0f));
     GL.Vertex(new Vector3(0.5f, 0f));
+    GL.Color(Color.green);
+    GL.Vertex(new Vector3(-0.5f, y+0.1f));
+    GL.Vertex(new Vector3(-0.5f + this.GetVirtualHealthPercentage(), y+0.1f));
+    GL.Color(Color.white);
+    GL.Vertex(new Vector3(-0.5f + this.GetVirtualHealthPercentage(), y+0.1f));
+    GL.Vertex(new Vector3(0.5f, y+0.1f));
     GL.End();
     GL.PopMatrix();
 }
@@ -50,19 +56,6 @@ public void OnRenderObject()
 ### Fly hack
 ```csharp
 bool flyEnabled;
-
-void FlyHack()
-{
-	if (Input.GetKeyDown(KeyCode.O))
-		flyEnabled = !flyEnabled;
-}
-
-//Add FlyHack to Update
-void Update()
-{
-	FlyHack();
-	//[...]
-}
 
 //Disable gravity when the hack is active
 private void Move(float deltaTime)
@@ -102,4 +95,22 @@ void vmethod_2()
 		}
 	}
 }
+```
+CHEAT MENU
+```csharp
+private void OnGUI()
+	{
+		if (GUI.Button(new Rect(10f, 10f, 150f, 50f), "ESP: " + (Character.CHEAT_ESP ? "ON" : "OFF")) || Input.GetKeyDown(KeyCode.I))
+		{
+			Character.CHEAT_ESP = !Character.CHEAT_ESP;
+		}
+		if (GUI.Button(new Rect(10f, 60f, 150f, 50f), "AIMBOT: " + (Character.CHEAT_AIMBOT ? "ON" : "OFF")) || Input.GetKeyDown(KeyCode.P))
+		{
+			Character.CHEAT_AIMBOT = !Character.CHEAT_AIMBOT;
+		}
+		if (GUI.Button(new Rect(10f, 110f, 150f, 50f), "NO GRAVITY: " + (this.flyEnabled ? "ON" : "OFF")) || Input.GetKeyDown(KeyCode.O))
+		{
+			this.flyEnabled = !this.flyEnabled;
+		}
+	}
 ```
