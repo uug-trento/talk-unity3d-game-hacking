@@ -1,5 +1,8 @@
-# talk-unity3d-game-hacking
+# talk unity3d game hacking
 Slides for the talk in the UUGTrento #8 
+
+> Update: You can use IL2CPP in your build to prevent people to edit it with dnSpy, it adds an extra layer of protection but can be decompiled using IDA
+
 ## Links
 Decompilers:
 * https://github.com/0xd4d/dnSpy
